@@ -21,12 +21,13 @@ const nextButton = El({
 const descriptionPartPage3 = El({
 	element: "div",
 	classList:
-		"bg-white w-full flex flex-col gap-15 justify-between items-center p-10",
+		"bg-white w-full flex flex-col gap-15 justify-between items-center p-10 relative",
 	children: [
 		descriptionText,
 		El({
 			element: "div",
-			classList: "flex flex-col gap-5 justify-between items-center",
+			classList:
+				"flex flex-col gap-5 justify-between items-center absolute bottom-[-105px]",
 			children: [carousel, nextButton],
 		}),
 	],

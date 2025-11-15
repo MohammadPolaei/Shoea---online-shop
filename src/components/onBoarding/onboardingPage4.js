@@ -21,12 +21,13 @@ const nextButton = El({
 const descriptionPartPage4 = El({
 	element: "div",
 	classList:
-		"bg-white w-full flex flex-col gap-15 justify-between items-center p-10",
+		"bg-white w-full flex flex-col gap-15 justify-between items-center p-10 relative",
 	children: [
 		descriptionText,
 		El({
 			element: "div",
-			classList: "flex flex-col gap-5 justify-between items-center",
+			classList:
+				"absolute flex flex-col gap-5 justify-between items-center  bottom-[-105px]",
 			children: [carousel, nextButton],
 		}),
 	],
@@ -39,10 +40,10 @@ const headingImg = El({
 });
 
 export function OnboardingPage4() {
-	const OnboardingPage3 = El({
+	const OnboardingPage4 = El({
 		element: "div",
 		classList: "h-screen",
 		children: [headingImg, descriptionPartPage4],
 	});
-	return OnboardingPage3;
+	return OnboardingPage4;
 }
