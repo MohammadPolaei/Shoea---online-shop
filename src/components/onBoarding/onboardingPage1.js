@@ -12,7 +12,7 @@ const shoeaText = El({
 });
 const loadingLogo = El({
 	element: "img",
-	classList: "w-10",
+	classList: "w-10 animate-spin",
 	src: "/images/spinner-atom.svg",
 });
 
@@ -30,7 +30,7 @@ export function OnboardingPage1() {
 			El({
 				element: "div",
 				classList:
-					"z-10 absolute bottom-30 flex flex-row justify-center items-center w-screen animate-spin",
+					"z-10 absolute bottom-30 flex flex-row justify-center items-center w-screen ",
 				children: [loadingLogo],
 			}),
 		],
