@@ -1,4 +1,4 @@
-import { OnboardingPage2 } from "./components/onBoarding/onboardingPage2";
+import { OnboardingPage3 } from "./components/onBoarding/onboardingPage3";
 import "./style/style.css";
 
-document.getElementById("app").append(OnboardingPage2());
+document.getElementById("app").append(OnboardingPage3());
