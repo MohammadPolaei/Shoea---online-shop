@@ -30,7 +30,7 @@ const notifications = El({
 export function Header() {
 	const header = El({
 		element: "div",
-		classList: "flex flex-row justify-between p-5",
+		classList: "flex flex-row justify-between",
 		children: [
 			El({
 				element: "div",
