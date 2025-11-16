@@ -1,4 +1,5 @@
 import { El } from "../../utils/el";
+import { signUp } from "../../utils/URL";
 import { backButton } from "../shared/backButtonOnTop";
 import { theButton } from "../shared/buttons";
 import { theBlackLogo } from "./logo";
@@ -74,6 +75,29 @@ const signUpForm = El({
 const subButton = theButton();
 subButton.innerText = "Signup";
 subButton.classList = subButton.classList + " absolute bottom-5";
+
+// sign up fetch
+async function signUpData(userName, passWord) {
+	const signUpData = await fetch(signUp, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ username: userName, password: passWord }),
+	});
+
+	if (!signUpData.ok) {
+		console.log("Error");
+		return;
+	}
+
+	// return signUpData;
+}
+
+// event listener sub button
+subButton.addEventListener("click", () => {
+	signUpData(userNameInput.value, passwordInput.value);
+});
+
+//
 
 export function Signup() {
 	const signUp = El({

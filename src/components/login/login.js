@@ -1,4 +1,5 @@
 import { El } from "../../utils/el";
+import { logIn } from "../../utils/URL";
 import { backButton } from "../shared/backButtonOnTop";
 import { theButton } from "../shared/buttons";
 import { theBlackLogo } from "./logo";
@@ -74,6 +75,22 @@ const logInForm = El({
 const subButton = theButton();
 subButton.innerText = "Signin";
 subButton.classList = subButton.classList + " absolute bottom-5";
+
+// fetching
+
+async function loginData(userName, password) {
+	const logInData = await fetch(logIn, {});
+
+	return logInData;
+}
+
+// sub button event listener
+
+subButton.addEventListener("click", () => {
+	loginData(userNameInput.value, passwordInput.value);
+});
+
+//
 
 export function Login() {
 	const logIn = El({

@@ -1,5 +1,14 @@
 import { El } from "../../utils/el";
+import { baseURL } from "../../utils/URL";
 
+// category data
+
+async function productsData() {
+	const products = await fetch(`${baseURL}/sneaker?page=1&limit=100`);
+	return products.json();
+}
+
+// UI design
 const categoryTitle = El({
 	element: "div",
 	classList: "text-2xl font-semibold",
@@ -23,5 +32,6 @@ export function ProductList() {
 		classList: "flex flex-col gap-5 ",
 		children: [categoryTitle, categories],
 	});
+	console.log(productsData());
 	return wholeProductList;
 }
