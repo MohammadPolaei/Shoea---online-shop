@@ -1,4 +1,4 @@
-import { Signup } from "./components/login/signup";
+import { Home } from "./components/home/home";
 import "./style/style.css";
 
-document.getElementById("app").append(Signup());
+document.getElementById("app").append(Home());

@@ -80,12 +80,15 @@ subButton.classList = subButton.classList + " absolute bottom-5";
 async function signUpData(userName, passWord) {
 	const signUpData = await fetch(signUp, {
 		method: "POST",
-		headers: { "Content-Type": "application/json" },
+		headers: {
+			"Content-Type": "application/json",
+		},
 		body: JSON.stringify({ username: userName, password: passWord }),
 	});
+	console.log(userName, passWord);
 
 	if (!signUpData.ok) {
-		console.log("Error");
+		console.log(signUpData);
 		return;
 	}
 

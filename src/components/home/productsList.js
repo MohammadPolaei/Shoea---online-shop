@@ -4,7 +4,11 @@ import { baseURL } from "../../utils/URL";
 // category data
 
 async function productsData() {
-	const products = await fetch(`${baseURL}/sneaker?page=1&limit=100`);
+	const products = await fetch(`${baseURL}/sneaker?page=1&limit=100`, {
+		headers: {
+			Authorization: "ca6ac6d0-c6f3-4958-b5e6-8dc1b6079fb5",
+		},
+	});
 	return products.json();
 }
 
@@ -32,6 +36,10 @@ export function ProductList() {
 		classList: "flex flex-col gap-5 ",
 		children: [categoryTitle, categories],
 	});
-	console.log(productsData());
+	console.log(
+		productsData().then((res) => {
+			console.log(res.data);
+		})
+	);
 	return wholeProductList;
 }
