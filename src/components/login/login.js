@@ -2,6 +2,8 @@ import { El } from "../../utils/el";
 import { logIn } from "../../utils/URL";
 import { backButton } from "../shared/backButtonOnTop";
 import { theButton } from "../shared/buttons";
+import { ErrorModal } from "../shared/errorModal";
+import { SuccessModal } from "../shared/successMessageModal";
 import { theBlackLogo } from "./logo";
 
 // back Button
@@ -30,8 +32,27 @@ const passwordInputLogo = El({
 	classList: "w-5 absolute left-2 top-[25%]",
 });
 
+const showHideButton = El({
+	element: "img",
+	src: "/images/Login/showHidePass.svg",
+	classList: "w-5 absolute right-2 top-[25%]",
+	eventListener: [
+		{
+			event: "click",
+			callback: () => {
+				if (passwordInput.type == "text") {
+					passwordInput.type = "password";
+				} else {
+					passwordInput.type = "text";
+				}
+			},
+		},
+	],
+});
+
 const passwordInput = El({
 	element: "input",
+	type: "password",
 	classList:
 		"w-full bg-[#FAFAFA] px-5 py-2 rounded-[5px] outline-0 font-bold pl-8 focus:outline-2",
 	placeholder: "Password",
@@ -39,7 +60,7 @@ const passwordInput = El({
 
 // text
 
-const loginText = El({
+const logInText = El({
 	element: "div",
 	classList: "font-bold text-3xl",
 	innerText: "Login to Your Account",
@@ -51,7 +72,7 @@ const logInForm = El({
 	element: "form",
 	classList: "w-[88%] flex flex-col gap-8 justify-center items-center",
 	children: [
-		loginText,
+		logInText,
 		El({
 			element: "div",
 			children: [usernameInputLogo, userNameInput],
@@ -59,7 +80,7 @@ const logInForm = El({
 		}),
 		El({
 			element: "div",
-			children: [passwordInputLogo, passwordInput],
+			children: [passwordInputLogo, passwordInput, showHideButton],
 			classList: "relative w-full",
 		}),
 		El({
@@ -76,18 +97,49 @@ const subButton = theButton();
 subButton.innerText = "Signin";
 subButton.classList = subButton.classList + " absolute bottom-5";
 
-// fetching
+// sign up fetch
 
-async function loginData(userName, password) {
-	const logInData = await fetch(logIn, {});
+async function logInData(userName, passWord) {
+	const logInDataVariable = await fetch(logIn, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ username: userName, password: passWord }),
+	});
 
-	return logInData;
+	if (logInDataVariable.ok) {
+		const response = await logInDataVariable.json();
+		SuccessModal("Your are logged in successfully !");
+
+		// sorted by the last session ID
+
+		const sortedResponse = response.user.sessions.sort(
+			(smllest, biggst) => biggst.id - smllest.id
+		);
+
+		// T O K E N
+		document.cookie = `sessionToken=${sortedResponse[0].token}; path=/;`;
+		document.cookie = `authToken=${response.token}; path=/;`;
+		console.log(document.cookie);
+
+		//
+	} else {
+		const response = await logInDataVariable.json();
+
+		ErrorModal(String(response.message).replace(",", `\n`));
+
+		return;
+	}
 }
 
-// sub button event listener
-
+// event listener sub button
 subButton.addEventListener("click", () => {
-	loginData(userNameInput.value, passwordInput.value);
+	if (document.getElementById("errorModal")) {
+		document.getElementById("errorModal").remove();
+	}
+
+	logInData(userNameInput.value, passwordInput.value);
 });
 
 //
@@ -96,7 +148,7 @@ export function Login() {
 	const logIn = El({
 		element: "div",
 		classList:
-			"h-screen flex flex-col gap-10 items-center justify-start relative",
+			"h-screen w-screen flex flex-col gap-10 items-center justify-start relative",
 		children: [back, theBlackLogo, logInForm, subButton],
 	});
 

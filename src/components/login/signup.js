@@ -32,8 +32,27 @@ const passwordInputLogo = El({
 	classList: "w-5 absolute left-2 top-[25%]",
 });
 
+const showHideButton = El({
+	element: "img",
+	src: "/images/Login/showHidePass.svg",
+	classList: "w-5 absolute right-2 top-[25%]",
+	eventListener: [
+		{
+			event: "click",
+			callback: () => {
+				if (passwordInput.type == "text") {
+					passwordInput.type = "password";
+				} else {
+					passwordInput.type = "text";
+				}
+			},
+		},
+	],
+});
+
 const passwordInput = El({
 	element: "input",
+	type: "password",
 	classList:
 		"w-full bg-[#FAFAFA] px-5 py-2 rounded-[5px] outline-0 font-bold pl-8 focus:outline-2",
 	placeholder: "Password",
@@ -61,7 +80,7 @@ const signUpForm = El({
 		}),
 		El({
 			element: "div",
-			children: [passwordInputLogo, passwordInput],
+			children: [passwordInputLogo, passwordInput, showHideButton],
 			classList: "relative w-full",
 		}),
 		El({
