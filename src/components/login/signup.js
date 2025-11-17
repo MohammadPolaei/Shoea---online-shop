@@ -2,6 +2,8 @@ import { El } from "../../utils/el";
 import { signUp } from "../../utils/URL";
 import { backButton } from "../shared/backButtonOnTop";
 import { theButton } from "../shared/buttons";
+import { ErrorModal } from "../shared/errorModal";
+import { SuccessModal } from "../shared/successMessageModal";
 import { theBlackLogo } from "./logo";
 
 // back Button
@@ -77,26 +79,41 @@ subButton.innerText = "Signup";
 subButton.classList = subButton.classList + " absolute bottom-5";
 
 // sign up fetch
+
 async function signUpData(userName, passWord) {
-	const signUpData = await fetch(signUp, {
+	const signUpDataVariable = await fetch(signUp, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({ username: userName, password: passWord }),
 	});
-	console.log(userName, passWord);
 
-	if (!signUpData.ok) {
-		console.log(signUpData);
+	if (signUpDataVariable.ok) {
+		const response = await signUpDataVariable.json();
+		SuccessModal("Your are signed up successfully !");
+
+		// T O K E N
+		console.log(response);
+		document.cookie = `authToken=${response.token}; path=/;`;
+		console.log(document.cookie);
+
+		//
+	} else {
+		const response = await signUpDataVariable.json();
+
+		ErrorModal(String(response.message).replace(",", `\n`));
+
 		return;
 	}
-
-	// return signUpData;
 }
 
 // event listener sub button
 subButton.addEventListener("click", () => {
+	if (document.getElementById("errorModal")) {
+		document.getElementById("errorModal").remove();
+	}
+
 	signUpData(userNameInput.value, passwordInput.value);
 });
 
@@ -106,7 +123,7 @@ export function Signup() {
 	const signUp = El({
 		element: "div",
 		classList:
-			"h-screen flex flex-col gap-10 items-center justify-start relative",
+			"h-screen w-screen flex flex-col gap-10 items-center justify-start relative",
 		children: [back, theBlackLogo, signUpForm, subButton],
 	});
 
