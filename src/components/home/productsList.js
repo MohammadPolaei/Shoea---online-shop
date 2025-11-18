@@ -1,7 +1,7 @@
 import { sessionToken } from "../../utils/cookieData";
 import { El } from "../../utils/el";
 import { baseURL } from "../../utils/URL";
-import { ProductCart } from "../shared/productCart";
+import { ProductCard } from "../shared/ProductCard";
 
 // category data
 async function categoryList() {
@@ -66,7 +66,7 @@ export function ProductList() {
 				element: "div",
 				id: "cartListContainer",
 				classList: "w-full h-2/3 grid grid-cols-2 gap-3 overflow-scroll",
-				children: productDataList.data.map((prod) => ProductCart(prod)),
+				children: productDataList.data.map((prod) => ProductCard(prod)),
 			}),
 		],
 	});

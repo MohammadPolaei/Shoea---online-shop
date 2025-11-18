@@ -99,7 +99,7 @@ subButton.classList = subButton.classList + " absolute bottom-5";
 
 // sign up fetch
 
-async function logInData(userName, passWord) {
+export async function logInData(userName, passWord) {
 	const logInDataVariable = await fetch(logIn, {
 		method: "POST",
 		headers: {

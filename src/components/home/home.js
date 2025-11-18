@@ -4,6 +4,10 @@ import { Header } from "./header";
 import { ProductList } from "./productsList";
 import { SearchInput } from "./searchInput";
 
+// just for keep in session
+
+// logInData("M8ddUser120", "00950095#M8dd");
+
 export function Home() {
 	const home = El({
 		element: "div",

@@ -1,6 +1,6 @@
 import { El } from "../../utils/el";
 
-export function ProductCart(prodData) {
+export function ProductCard(prodData) {
 	const { imageURL, name, price } = prodData;
 	const prodImg = El({
 		element: "img",
