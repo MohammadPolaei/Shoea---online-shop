@@ -1,4 +1,6 @@
+import { sessionToken } from "../../utils/cookieData";
 import { El } from "../../utils/el";
+import { user } from "../../utils/URL";
 
 const grettingTime = El({
 	element: "div",
@@ -6,10 +8,24 @@ const grettingTime = El({
 	innerText: "Good Morning 🤚",
 });
 
+// username fetch
+// logInData("M8ddUser120", "00950095#M8dd");
+
+async function getUserName() {
+	const userData = await fetch(user, {
+		headers: {
+			Authorization: `Bearer ${sessionToken}`,
+		},
+	});
+	const username = await userData.json();
+
+	return username.username;
+}
+
 const greetingUserName = El({
 	element: "div",
 	classList: "text-black text-md font-bold",
-	innerText: "User Name",
+	innerText: await getUserName(),
 });
 
 const notifications = El({
@@ -40,5 +56,6 @@ export function Header() {
 			notifications,
 		],
 	});
+
 	return header;
 }
