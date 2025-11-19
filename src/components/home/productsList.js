@@ -1,32 +1,7 @@
-import { sessionToken } from "../../utils/cookieData";
 import { El } from "../../utils/el";
-import { baseURL } from "../../utils/URL";
+import { catList } from "../products/categoryList";
+import { productDataList } from "../products/productsData";
 import { ProductCard } from "../shared/ProductCard";
-
-// category data
-async function categoryList() {
-	const catList = await fetch(`${baseURL}/sneaker/brands`, {
-		headers: {
-			Authorization: `Bearer ${sessionToken}`,
-		},
-	});
-	return catList.json();
-}
-const catList = await categoryList();
-
-// products data
-
-async function productsData() {
-	const products = await fetch(`${baseURL}/sneaker?page=1&limit=100`, {
-		headers: {
-			Authorization: `Bearer ${sessionToken}`,
-		},
-	});
-	return products.json();
-}
-
-const productDataList = await productsData();
-console.log(productDataList.data);
 
 // UI design
 const categoryTitle = El({
@@ -59,13 +34,15 @@ export function ProductList() {
 			categoryTitle,
 			El({
 				element: "div",
-				classList: "flex flex-row overflow-scroll gap-3",
+				classList:
+					"flex flex-row overflow-x-scroll overflow-y-hidden gap-3 no-scrollbar",
 				children: catList.map((brand) => categoryListCreate(brand)),
 			}),
 			El({
 				element: "div",
 				id: "cartListContainer",
-				classList: "w-full h-2/3 grid grid-cols-2 gap-3 overflow-scroll",
+				classList:
+					"w-full h-2/3 grid grid-cols-2 gap-3 overflow-scroll no-scrollbar",
 				children: productDataList.data.map((prod) => ProductCard(prod)),
 			}),
 		],

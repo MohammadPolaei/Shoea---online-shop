@@ -9,7 +9,6 @@ import { theBlackLogo } from "./logo";
 // back Button
 
 const back = backButton;
-back.classList = back.classList + "absolute left-6 top-4";
 
 // inputs
 
