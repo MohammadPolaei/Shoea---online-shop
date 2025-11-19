@@ -201,6 +201,12 @@ function productPageCreator(productKeys) {
 				classList:
 					"w-full px-4 py-4 text-center text-white shadow-xl bg-black rounded-[80px]",
 				innerText: "Add to Cart",
+				eventListener: [
+					{
+						event: "click",
+						callback: () => {},
+					},
+				],
 			}),
 		],
 	});
