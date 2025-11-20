@@ -1,8 +1,10 @@
 import { El } from "../../utils/el";
+import { containerDesign } from "../shared/divCardContainers";
 import { footerMenu } from "../shared/footerMenu";
+import { CartItems } from "./getCartItems";
 
 export function Cart() {
-	// console.log(CartItems);
+	// cart
 	const logo = El({
 		element: "img",
 		classList: "w-8",
@@ -35,8 +37,8 @@ export function Cart() {
 
 	const cartProductList = El({
 		element: "div",
-		classList:
-			"flex flex-col gap-5 overflow-y-scroll no-scrollbar border-1 h-2/3",
+		classList: "flex flex-col gap-5 overflow-y-scroll no-scrollbar h-2/3",
+		children: CartItems.map((prod) => containerDesign(prod)),
 	});
 
 	const checkoutButton = El({
@@ -53,7 +55,8 @@ export function Cart() {
 
 	const totalPriceAndCheckout = El({
 		element: "div",
-		classList: "absolute mx-auto top-[78%] left-0 right-0 bottom-0",
+		classList:
+			"absolute bg-white border-t-[1px] border-[#33333333] rounded-2xl mx-auto top-[78%] left-0 right-0 bottom-0",
 		children: [
 			El({
 				element: "div",
@@ -83,7 +86,7 @@ export function Cart() {
 
 	const cartContainer = El({
 		element: "div",
-		classList: "relative h-screen ",
+		classList: "relative h-screen bg-[#33333305]",
 		children: [
 			El({
 				element: "div",
