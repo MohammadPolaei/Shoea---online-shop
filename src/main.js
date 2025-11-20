@@ -1,8 +1,7 @@
-import { Cart } from "./components/cart/cart";
 import { Login } from "./components/login/login";
+import { Search } from "./components/search/search";
 import "./style/style.css";
 
 // document.getElementById("app").append(Login());
-// document.getElementById("app").append(containerDesign());
 
-document.getElementById("app").append(Cart());
+document.getElementById("app").append(Search());
