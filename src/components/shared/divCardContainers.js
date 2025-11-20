@@ -1,4 +1,5 @@
 import { El } from "../../utils/el";
+import { removeItemFromCart } from "../cart/removeProductFromCart";
 
 export function containerDesign(selectedProductData) {
 	const { id, quantity, sneaker } = selectedProductData;
@@ -171,8 +172,8 @@ export function containerDesign(selectedProductData) {
 								eventListener: [
 									{
 										event: "click",
-										callback: (e) => {
-											console.log(e);
+										callback: () => {
+											removeItemFromCart(id);
 										},
 									},
 								],
@@ -188,7 +189,7 @@ export function containerDesign(selectedProductData) {
 
 	const container = El({
 		element: "div",
-		classList: "p-5 rounded-3xl bg-white box-border mx-7",
+		classList: "p-5 rounded-3xl bg-white box-border mx-7 active:shadow-xl",
 		children: [
 			El({
 				element: "div",
@@ -229,7 +230,7 @@ export function containerDesign(selectedProductData) {
 							}),
 							El({
 								element: "div",
-								classList: "flex flex-row justify-between gap-5 items-center",
+								classList: "flex flex-row justify-between w-50 items-center",
 								children: [
 									El({
 										element: "div",
