@@ -1,5 +1,6 @@
 import { El } from "../../utils/el";
-import { GetSearchResults } from "./searchResults";
+import { searchNotFound } from "./searchNotFound";
+import { GetSearchResults, isFound } from "./searchResults";
 
 export function Search() {
 	//search input
@@ -17,6 +18,7 @@ export function Search() {
 			El({
 				element: "input",
 				placeholder: "Search",
+				id: "searchInput",
 				classList:
 					"bg-[#33333306] w-full py-5 px-16 active:outline-1 rounded-xl font-semibold placeholder:text-[#00000060] placeholder:font-normal",
 				eventListener: [
@@ -25,7 +27,25 @@ export function Search() {
 						callback: () => {
 							setTimeout(() => {
 								// result of input
-							}, 3000);
+
+								if (document.getElementById("searchResultContainer")) {
+									document.getElementById("searchResultContainer").remove();
+								}
+								if (
+									!isFound &&
+									document.getElementById("searchInput").value.length > 0
+								) {
+									document
+										.getElementById("searchContainer")
+										.append(searchNotFound);
+									console.log("notFoundPage");
+									return;
+								}
+								if (document.getElementById("searchInput").value.length < 1) {
+									return;
+								}
+								GetSearchResults(document.getElementById("searchInput").value);
+							}, 2000);
 						},
 					},
 				],
@@ -50,7 +70,7 @@ export function Search() {
 		id: "searchContainer",
 		children: [],
 	});
-	GetSearchResults("nike");
+
 	const search = El({
 		element: "div",
 		classList: "px-5 flex flex-col items-center justify-start",
