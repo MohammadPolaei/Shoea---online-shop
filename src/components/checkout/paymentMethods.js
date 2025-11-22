@@ -1,7 +1,7 @@
 import { El } from "../../utils/el";
 import { backButton } from "../shared/backButtonOnTop";
 
-export function ShippingAddresPage() {
+export function PaymentMethods() {
 	const backbutt = backButton;
 	backButton.classList = "relative";
 
@@ -19,49 +19,49 @@ export function ShippingAddresPage() {
 					El({
 						element: "Div",
 						classList: "text-2xl font-semibold",
-						innerText: "Shipping Address",
+						innerText: "Payment Methods",
 					}),
 				],
 			}),
 		],
 	});
 
-	// address container
-	const addressContainer = El({
+	// items
+	const myWallet = El({
 		element: "div",
-		classList: "flex flex-col justify-between gap-8 items-center",
+		classList:
+			"px-2 flex flex-row w-full justify-between items-center shadow-2xl shadow-[#00000010] p-2 rounded-[25px]",
 		children: [
 			El({
 				element: "div",
-				classList:
-					"px-2 flex flex-row w-full justify-between items-center shadow-2xl shadow-[#00000010] p-2 rounded-[25px]",
+				classList: "flex flex-row justify-between gap-1 items-center",
+				children: [
+					El({
+						element: "img",
+						classList: "w-20",
+						src: "/images/checkout/locationIcon.png",
+					}),
+					El({
+						element: "div",
+						classList: "flex flex-col gap-1",
+						children: [
+							El({
+								element: "div",
+								classList: "font-semibold text-xl",
+								innerText: "My Wallet",
+							}),
+						],
+					}),
+				],
+			}),
+			El({
+				element: "div",
+				classList: "flex flex-row items-center",
 				children: [
 					El({
 						element: "div",
-						classList: "flex flex-row justify-between gap-1 items-center",
-						children: [
-							El({
-								element: "img",
-								classList: "w-20",
-								src: "/images/checkout/locationIcon.png",
-							}),
-							El({
-								element: "div",
-								classList: "flex flex-col gap-1",
-								children: [
-									El({
-										element: "div",
-										classList: "font-semibold text-xl",
-										innerText: "Home",
-									}),
-									El({
-										element: "div",
-										classList: "text-md text-[#33333388]",
-										innerText: "addres of the target",
-									}),
-								],
-							}),
-						],
+						classList: "text-md",
+						innerText: "$10",
 					}),
 					El({
 						element: "input",
@@ -75,30 +75,32 @@ export function ShippingAddresPage() {
 	});
 
 	// container
+	const paymentContainer = El({
+		element: "div",
+		classList: "flex flex-col justify-between gap-8 items-center",
+		children: [
+			El({
+				element: "div",
+				classList: "",
+				innerText: "Select the payment method you want to use",
+			}),
+			myWallet,
+		],
+	});
+
+	// payment container
 
 	const shippingAddressContainer = El({
 		element: "div",
 		classList: "mx-7 h-screen relative",
 		children: [
 			titlePart,
-			addressContainer,
-			El({
-				element: "div",
-				classList: "py-8",
-				children: [
-					El({
-						element: "button",
-						classList:
-							"w-full bg-[#33333322] py-4 rounded-[50px] font-semibold",
-						innerText: "Add New Address",
-					}),
-				],
-			}),
+			paymentContainer,
 			El({
 				element: "button",
 				classList:
 					"absolute top-[90%] bg-black text-white py-4 rounded-[50px] font-semibold w-full shadow-2xl",
-				innerText: "Apply",
+				innerText: "Confirm Payment",
 			}),
 		],
 	});
