@@ -27,6 +27,7 @@ export function Search() {
 						callback: () => {
 							setTimeout(() => {
 								// result of input
+								console.log(isFound);
 
 								if (document.getElementById("searchResultContainer")) {
 									document.getElementById("searchResultContainer").remove();
