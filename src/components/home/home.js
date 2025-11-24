@@ -1,5 +1,5 @@
 import { El } from "../../utils/el";
-import { footerMenu } from "./footerMenu";
+import { footerMenu } from "../shared/footerMenu";
 import { Header } from "./header";
 import { ProductList } from "./productsList";
 import { SearchInput } from "./searchInput";

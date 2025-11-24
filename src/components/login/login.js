@@ -1,4 +1,5 @@
 import { El } from "../../utils/el";
+import { router } from "../../utils/router";
 import { logIn } from "../../utils/URL";
 import { backButton } from "../shared/backButtonOnTop";
 import { theButton } from "../shared/buttons";
@@ -83,9 +84,21 @@ const logInForm = El({
 			classList: "relative w-full",
 		}),
 		El({
-			element: "div",
-			innerText: "Signup",
-			classList: "text-md",
+			element: "a",
+			classList: "no-underline",
+			eventListener: [
+				{
+					event: "click",
+					callback: () => router.navigate("/signup"),
+				},
+			],
+			children: [
+				El({
+					element: "div",
+					innerText: "Signup",
+					classList: "text-md",
+				}),
+			],
 		}),
 	],
 });
@@ -121,6 +134,7 @@ export async function logInData(userName, passWord) {
 		document.cookie = `sessionToken=${sortedResponse[0].token}; path=/;`;
 		document.cookie = `authToken=${response.token}; path=/;`;
 		console.log(document.cookie);
+		setTimeout(() => router.navigate("/home"), 1000);
 
 		//
 	} else {

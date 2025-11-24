@@ -1,4 +1,6 @@
 import { El } from "../../utils/el";
+import { router } from "../../utils/router";
+import { blackFaderEffect, onBoardingContainer } from "./onboarding";
 
 const descriptionText = El({
 	element: "div",
@@ -8,14 +10,24 @@ const descriptionText = El({
 
 const carousel = El({
 	element: "img",
-	src: "/images/onboardingPage4/_carousel-indicators.svg",
+	src: "/images/onboardingPage5/_carousel-indicators.svg",
 	classList: "w-20",
 });
 
 const nextButton = El({
 	element: "button",
 	classList: "w-100 bg-black text-white text-md py-2 rounded-3xl",
-	innerText: "Get Started",
+	innerText: "Next",
+	eventListener: [
+		{
+			event: "click",
+			callback: () => {
+				onBoardingContainer.innerHTML = "";
+				onBoardingContainer.append(blackFaderEffect);
+				router.navigate("/signup");
+			},
+		},
+	],
 });
 
 const descriptionPartPage5 = El({

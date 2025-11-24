@@ -1,4 +1,6 @@
 import { El } from "../../utils/el";
+import { blackFaderEffect, onBoardingContainer } from "./onboarding";
+import { OnboardingPage5 } from "./onboardingPage5";
 
 const descriptionText = El({
 	element: "div",
@@ -16,6 +18,17 @@ const nextButton = El({
 	element: "button",
 	classList: "w-100 bg-black text-white text-md py-2 rounded-3xl",
 	innerText: "Next",
+	eventListener: [
+		{
+			event: "click",
+			callback: () => {
+				onBoardingContainer.innerHTML = "";
+				onBoardingContainer.append(OnboardingPage5());
+				onBoardingContainer.append(blackFaderEffect);
+				setTimeout(() => onBoardingContainer.children[1].remove(), 900);
+			},
+		},
+	],
 });
 
 const descriptionPartPage4 = El({
