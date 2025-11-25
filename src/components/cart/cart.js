@@ -35,6 +35,12 @@ export function Cart() {
 				element: "img",
 				classList: "w-16 h-16",
 				src: "/images/cart/search.png",
+				eventListener: [
+					{
+						event: "click",
+						callback: () => router.navigate("/search"),
+					},
+				],
 			}),
 		],
 	});

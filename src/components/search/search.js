@@ -77,6 +77,7 @@ export function Search() {
 		classList: "px-5 flex flex-col items-center justify-start",
 		children: [searchInput, dataContainer],
 	});
+	searchInput.children[1].focus();
 
 	return search;
 }

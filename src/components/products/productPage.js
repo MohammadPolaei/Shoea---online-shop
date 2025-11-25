@@ -20,7 +20,7 @@ function productPageCreator(productKeys) {
 		children: [
 			El({
 				element: "div",
-				classList: "text-2xl font-bold overflow-hidden h-10 ",
+				classList: "text-2xl font-bold overflow-hidden h-9 ",
 				innerText: name,
 			}),
 			El({
@@ -213,11 +213,11 @@ function productPageCreator(productKeys) {
 
 	const productSection = El({
 		element: "div",
-		classList: "flex flex-col gap-3 h-screen",
+		classList: "flex flex-col gap-15 h-screen",
 		children: [
 			El({
 				element: "div",
-				classList: "relative h-1/2",
+				classList: "relative h-[45%]",
 				children: [backButt, imageSection],
 			}),
 			El({
@@ -239,7 +239,7 @@ const containerOfProduct = El({
 	element: "div",
 });
 export function ProductPage(prodID) {
-	getProductDetails(prodID).then((res) =>
+	getProductDetails(prodID.id).then((res) =>
 		containerOfProduct.append(productPageCreator(res))
 	);
 	return containerOfProduct;
