@@ -1,3 +1,5 @@
+import { catList } from "./components/products/categoryList";
+import { productDataList } from "./components/products/productsData";
 import { Cart_Page } from "./pages/cart/cart";
 import { Checkout_Page } from "./pages/checkout/checkout";
 import { Home_Page } from "./pages/home/home";
@@ -27,5 +29,7 @@ router.addRoute("/checkout", Checkout_Page);
 // router.addRoute("/products", ProductsPage);
 // router.addRoute("/product/:id", ProductDetailPage);
 // router.addRoute("/my-name/:name", MyNamePage);
-
+if (productDataList.error || catList.error) {
+	router.navigate("/login");
+}
 router.init(mainContainer);

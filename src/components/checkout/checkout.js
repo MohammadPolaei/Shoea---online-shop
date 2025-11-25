@@ -97,81 +97,88 @@ const orderListContainer = El({
 		El({
 			element: "div",
 			classList: "flex flex-col justify-between gap-3",
-			children: CartItems.map((item) => {
-				const { quantity, sneaker } = item;
-				const { imageURL, name, colors, sizes, price } = sneaker;
+			children: CartItems.error
+				? []
+				: CartItems.map((item) => {
+						const { quantity, sneaker } = item;
+						const { imageURL, name, colors, sizes, price } = sneaker;
 
-				const image = El({
-					element: "img",
-					classList: "w-30 h-30 rounded-2xl",
-					src: imageURL,
-				});
+						const image = El({
+							element: "img",
+							classList: "w-30 h-30 rounded-2xl",
+							src: imageURL,
+						});
 
-				return El({
-					element: "div",
-					classList:
-						"p-5 rounded-3xl bg-white box-border shadow-2xl shadow-[#00000010] active:shadow-xl",
-					children: [
-						El({
+						return El({
 							element: "div",
-							classList: "flex flex-row gap-3 items-center",
+							classList:
+								"p-5 rounded-3xl bg-white box-border shadow-2xl shadow-[#00000010] active:shadow-xl",
 							children: [
-								image,
 								El({
 									element: "div",
-									classList: "flex flex-col gap-3 justify-between items-left",
+									classList: "flex flex-row gap-3 items-center",
 									children: [
-										El({
-											element: "div",
-											classList: "flex flex-row justify-between items-center",
-											children: [
-												El({
-													element: "div",
-													classList: "font-bold text-md h-5 overflow-hidden",
-													innerText: name,
-												}),
-											],
-										}),
-										El({
-											element: "div",
-											classList: "flex flex-row gap-2 items-center",
-											children: [
-												El({
-													element: "div",
-													classList: "rounded-[100%] w-5 h-5 bg-black",
-												}),
-												El({
-													element: "div",
-													classList: "text-sm text-[#333333cc]",
-													// set color and size [index] for just default show
-													innerText: `${colors[0]} | Size = ${sizes[0]}`,
-												}),
-											],
-										}),
+										image,
 										El({
 											element: "div",
 											classList:
-												"flex flex-row justify-between w-50 items-center",
+												"flex flex-col gap-3 justify-between items-left",
 											children: [
 												El({
 													element: "div",
-													classList: "font-bold",
-													innerText: `$${price}.00`,
-												}),
-												El({
-													element: "div",
 													classList:
-														"flex flex-row justify-start items-center gap-3",
+														"flex flex-row justify-between items-center",
 													children: [
 														El({
 															element: "div",
 															classList:
-																"bg-[#ebebec99] px-4 py-2 rounded-[100%]",
+																"font-bold text-md h-5 overflow-hidden",
+															innerText: name,
+														}),
+													],
+												}),
+												El({
+													element: "div",
+													classList: "flex flex-row gap-2 items-center",
+													children: [
+														El({
+															element: "div",
+															classList: "rounded-[100%] w-5 h-5 bg-black",
+														}),
+														El({
+															element: "div",
+															classList: "text-sm text-[#333333cc]",
+															// set color and size [index] for just default show
+															innerText: `${colors[0]} | Size = ${sizes[0]}`,
+														}),
+													],
+												}),
+												El({
+													element: "div",
+													classList:
+														"flex flex-row justify-between w-50 items-center",
+													children: [
+														El({
+															element: "div",
+															classList: "font-bold",
+															innerText: `$${price}.00`,
+														}),
+														El({
+															element: "div",
+															classList:
+																"flex flex-row justify-start items-center gap-3",
 															children: [
 																El({
 																	element: "div",
-																	classList: "text-md font-semibold",
-																	innerText: `${quantity}`,
+																	classList:
+																		"bg-[#ebebec99] px-4 py-2 rounded-[100%]",
+																	children: [
+																		El({
+																			element: "div",
+																			classList: "text-md font-semibold",
+																			innerText: `${quantity}`,
+																		}),
+																	],
 																}),
 															],
 														}),
@@ -182,10 +189,8 @@ const orderListContainer = El({
 									],
 								}),
 							],
-						}),
-					],
-				});
-			}),
+						});
+				  }),
 		}),
 	],
 });
@@ -345,8 +350,6 @@ const submitButton = El({
 		}),
 	],
 });
-
-console.log(CartItems);
 
 export function CheckOut() {
 	const checkOutContainer = El({

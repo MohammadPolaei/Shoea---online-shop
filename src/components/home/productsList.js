@@ -36,14 +36,18 @@ export function ProductList() {
 				element: "div",
 				classList:
 					"flex flex-row overflow-x-scroll overflow-y-hidden gap-3 no-scrollbar",
-				children: catList.map((brand) => categoryListCreate(brand)),
+				children: catList.error
+					? []
+					: catList.map((brand) => categoryListCreate(brand)),
 			}),
 			El({
 				element: "div",
 				id: "cartListContainer",
 				classList:
 					"w-full h-2/3 grid grid-cols-2 gap-3 overflow-scroll no-scrollbar",
-				children: productDataList.data.map((prod) => ProductCard(prod)),
+				children: productDataList.error
+					? []
+					: productDataList.data.map((prod) => ProductCard(prod)),
 			}),
 		],
 	});
