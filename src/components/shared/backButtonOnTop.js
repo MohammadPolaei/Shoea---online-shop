@@ -3,6 +3,12 @@ import { El } from "../../utils/el";
 export const backButton = El({
 	element: "button",
 	classList: "absolute top-4 left-6",
+	eventListener: [
+		{
+			event: "click",
+			callback: () => console.log("back button"),
+		},
+	],
 	children: [
 		El({
 			element: "img",

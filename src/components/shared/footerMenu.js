@@ -1,28 +1,47 @@
 import { El } from "../../utils/el";
+import { router } from "../../utils/router";
 
-const homeIcon = El({
+export const homeIcon = El({
 	element: "img",
-	src: "/images/homePage/footer/home.svg",
+	src: "/images/homePage/footer/home-unclicked.svg",
+	classList: "w-8",
+	eventListener: [
+		{
+			event: "click",
+			callback: () => {
+				router.navigate("/home");
+				cartIcon.src = "/images/homePage/footer/cart-unclicked.svg";
+			},
+		},
+	],
+});
+export const cartIcon = El({
+	element: "img",
+	src: "/images/homePage/footer/cart-unclicked.svg",
+	classList: "w-8",
+	eventListener: [
+		{
+			event: "click",
+			callback: () => {
+				homeIcon.src = "/images/homePage/footer/home-unclicked.svg";
+				router.navigate("/cart");
+			},
+		},
+	],
+});
+export const ordersIcon = El({
+	element: "img",
+	src: "/images/homePage/footer/orders-unclicked.svg",
 	classList: "w-8",
 });
-const cartIcon = El({
+export const walletIcon = El({
 	element: "img",
-	src: "/images/homePage/footer/cart.svg",
+	src: "/images/homePage/footer/wallet-unclicked.svg",
 	classList: "w-8",
 });
-const ordersIcon = El({
+export const profileIcon = El({
 	element: "img",
-	src: "/images/homePage/footer/orders.svg",
-	classList: "w-8",
-});
-const walletIcon = El({
-	element: "img",
-	src: "/images/homePage/footer/wallet.svg",
-	classList: "w-8",
-});
-const profileIcon = El({
-	element: "img",
-	src: "/images/homePage/footer/profile.svg",
+	src: "/images/homePage/footer/profile-unclicked.svg",
 	classList: "w-8",
 });
 

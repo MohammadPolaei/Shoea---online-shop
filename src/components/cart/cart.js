@@ -1,9 +1,13 @@
 import { El } from "../../utils/el";
+import { router } from "../../utils/router";
 import { containerDesign } from "../shared/divCardContainers";
-import { footerMenu } from "../shared/footerMenu";
+import { cartIcon, footerMenu } from "../shared/footerMenu";
 import { CartItems } from "./getCartItems";
 
 export function Cart() {
+	router.getCurrentRoute() == "/cart"
+		? (cartIcon.src = "/images/homePage/footer/cart.svg")
+		: (cartIcon.src = "/images/homePage/footer/cart-unclicked.svg");
 	// cart
 	const logo = El({
 		element: "img",
@@ -48,10 +52,15 @@ export function Cart() {
 		eventListener: [
 			{
 				event: "click",
-				callback: () => {},
+				callback: () => {
+					router.navigate("/checkout");
+				},
 			},
 		],
 	});
+
+	let totalPrice = 0;
+	CartItems.forEach((data) => (totalPrice += data.sneaker.price));
 
 	const totalPriceAndCheckout = El({
 		element: "div",
@@ -74,7 +83,7 @@ export function Cart() {
 							El({
 								element: "div",
 								classList: "text-2xl font-semibold",
-								innerText: `$150.22`,
+								innerText: `$${totalPrice}.00`,
 							}),
 						],
 					}),

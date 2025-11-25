@@ -174,6 +174,7 @@ export function containerDesign(selectedProductData) {
 										event: "click",
 										callback: () => {
 											removeItemFromCart(id);
+											document.getElementById("removeModal").remove();
 										},
 									},
 								],

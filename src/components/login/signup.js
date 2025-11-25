@@ -129,7 +129,7 @@ async function signUpData(userName, passWord) {
 		document.cookie = `authToken=${response.token}; path=/;`;
 		console.log(document.cookie);
 
-		setTimeout(() => router.navigate("/login"), 1000);
+		setTimeout(() => router.navigate("/login"), 300);
 
 		//
 	} else {
@@ -157,7 +157,16 @@ export function Signup() {
 		element: "div",
 		classList:
 			"h-screen w-screen flex flex-col gap-10 items-center justify-start relative",
-		children: [back, theBlackLogo, signUpForm, subButton],
+		children: [
+			El({
+				element: "div",
+				classList: "absolute w-full py-9 px-5",
+				children: [back],
+			}),
+			theBlackLogo,
+			signUpForm,
+			subButton,
+		],
 	});
 
 	return signUp;

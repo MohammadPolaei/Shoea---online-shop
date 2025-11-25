@@ -1,7 +1,8 @@
 import { El } from "../../utils/el";
+import { router } from "../../utils/router";
 
 export function ProductCard(prodData) {
-	const { imageURL, name, price } = prodData;
+	const { id, imageURL, name, price } = prodData;
 	const prodImg = El({
 		element: "img",
 		src: imageURL,
@@ -22,5 +23,13 @@ export function ProductCard(prodData) {
 		element: "div",
 		classList: "w-full flex flex-col gap-2 justify-between",
 		children: [prodImg, prodName, prodPrice],
+		eventListener: [
+			{
+				event: "click",
+				callback: () => {
+					router.navigate(`/product/${id}`);
+				},
+			},
+		],
 	});
 }

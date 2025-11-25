@@ -162,7 +162,16 @@ export function Login() {
 		element: "div",
 		classList:
 			"h-screen w-screen flex flex-col gap-10 items-center justify-start relative",
-		children: [back, theBlackLogo, logInForm, subButton],
+		children: [
+			El({
+				element: "div",
+				classList: "absolute w-full py-9 px-5",
+				children: [back],
+			}),
+			theBlackLogo,
+			logInForm,
+			subButton,
+		],
 	});
 
 	return logIn;
