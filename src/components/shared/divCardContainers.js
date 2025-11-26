@@ -175,6 +175,7 @@ export function containerDesign(selectedProductData) {
 										callback: () => {
 											removeItemFromCart(id);
 											document.getElementById("removeModal").remove();
+											location.reload();
 										},
 									},
 								],
@@ -187,6 +188,12 @@ export function containerDesign(selectedProductData) {
 	});
 
 	// container
+
+	let quantityValueOfCart = El({
+		element: "div",
+		classList: "text-md font-semibold",
+		innerText: `${quantity}`,
+	});
 
 	const container = El({
 		element: "div",
@@ -251,16 +258,31 @@ export function containerDesign(selectedProductData) {
 														element: "button",
 														classList: "text-xl",
 														innerText: "-",
+														eventListener: [
+															{
+																event: "click",
+																callback: () => {
+																	if (quantityValueOfCart.innerText <= 1) {
+																		return;
+																	}
+																	quantityValueOfCart.innerText--;
+																},
+															},
+														],
 													}),
-													El({
-														element: "div",
-														classList: "text-md font-semibold",
-														innerText: `${quantity}`,
-													}),
+													quantityValueOfCart,
 													El({
 														element: "button",
 														classList: "text-xl",
 														innerText: "+",
+														eventListener: [
+															{
+																event: "click",
+																callback: () => {
+																	quantityValueOfCart.innerText++;
+																},
+															},
+														],
 													}),
 												],
 											}),

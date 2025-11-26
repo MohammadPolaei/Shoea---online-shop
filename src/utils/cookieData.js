@@ -1,6 +1,6 @@
-export const sessionToken = document.cookie
+export let sessionToken = document.cookie
 	? document.cookie.split(";")[0].replace("sessionToken=", "")
 	: null;
-export const authToken = document.cookie
+export let authToken = document.cookie
 	? document.cookie.split(";")[1].replace("authToken=", "")
 	: null;

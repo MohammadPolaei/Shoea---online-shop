@@ -55,8 +55,6 @@ function categoryListCreate(catName) {
 						).forEach((item) => item.remove());
 
 						productsData().then((res) => {
-							console.log(res);
-
 							res.data.forEach((prod) => {
 								document
 									.getElementById("cartListContainer")

@@ -1,11 +1,14 @@
 import { El } from "../../utils/el";
+import { addToCart } from "../cart/addToCart";
 import { backButton } from "../shared/backButtonOnTop";
+import { ErrorModal } from "../shared/errorModal";
+import { SuccessModal } from "../shared/successMessageModal";
 import { getProductDetails } from "./productDetails";
 
 // getting data
 
 function productPageCreator(productKeys) {
-	const { name, imageURL, colors, sizes, price } = productKeys;
+	const { id, name, imageURL, colors, sizes, price } = productKeys;
 
 	const backButt = backButton;
 
@@ -90,6 +93,14 @@ function productPageCreator(productKeys) {
 								element: "div",
 								classList: `rounded-[100%] text-sm w-3 h-3 flex items-center justify-center border-2 border-[#333333cc] p-4 text-center`,
 								innerText: size,
+								eventListener: [
+									{
+										event: "click",
+										callback: () => {
+											console.log(size);
+										},
+									},
+								],
 							});
 						}),
 					}),
@@ -159,16 +170,36 @@ function productPageCreator(productKeys) {
 						element: "button",
 						classList: "text-2xl",
 						innerText: "-",
+						eventListener: [
+							{
+								event: "click",
+								callback: () => {
+									if (document.getElementById("quantityValue").innerText <= 0) {
+										return;
+									}
+									document.getElementById("quantityValue").innerText--;
+								},
+							},
+						],
 					}),
 					El({
 						element: "div",
 						classList: "text-md font-semibold",
-						innerText: "num",
+						id: "quantityValue",
+						innerText: "0",
 					}),
 					El({
 						element: "button",
 						classList: "text-2xl",
 						innerText: "+",
+						eventListener: [
+							{
+								event: "click",
+								callback: () => {
+									document.getElementById("quantityValue").innerText++;
+								},
+							},
+						],
 					}),
 				],
 			}),
@@ -204,7 +235,17 @@ function productPageCreator(productKeys) {
 				eventListener: [
 					{
 						event: "click",
-						callback: () => {},
+						callback: () => {
+							const quantityOfProduct = Number(
+								document.getElementById("quantityValue").innerText
+							);
+							if (quantityOfProduct == 0) {
+								ErrorModal("Quantity must be 1 at least");
+								return;
+							}
+							addToCart(id, quantityOfProduct);
+							SuccessModal("Product added to cart successfully");
+						},
 					},
 				],
 			}),
@@ -239,8 +280,10 @@ const containerOfProduct = El({
 	element: "div",
 });
 export function ProductPage(prodID) {
-	getProductDetails(prodID.id).then((res) =>
-		containerOfProduct.append(productPageCreator(res))
-	);
+	getProductDetails(prodID.id).then((res) => {
+		containerOfProduct.innerHTML = "";
+
+		containerOfProduct.append(productPageCreator(res));
+	});
 	return containerOfProduct;
 }

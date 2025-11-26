@@ -11,14 +11,17 @@ const grettingTime = El({
 // username fetch
 // logInData("M8ddUser120", "00950095#M8dd");
 
-async function getUserName() {
+export async function getUserName() {
 	const userData = await fetch(user, {
 		headers: {
 			Authorization: `Bearer ${sessionToken}`,
 		},
 	});
 	const username = await userData.json();
-
+	if (username.error) {
+		document.cookie = `sessionToken=expired; path=/;`;
+		document.cookie = `authToken=expired; path=/;`;
+	}
 	return username.username;
 }
 

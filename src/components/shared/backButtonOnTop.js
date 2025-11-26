@@ -6,7 +6,9 @@ export const backButton = El({
 	eventListener: [
 		{
 			event: "click",
-			callback: () => console.log("back button"),
+			callback: () => {
+				history.back();
+			},
 		},
 	],
 	children: [
