@@ -1,4 +1,6 @@
 import { El } from "../../utils/el";
+import { router } from "../../utils/router";
+import { store } from "../../utils/store";
 import { CartItems } from "../cart/getCartItems";
 import { backButton } from "../shared/backButtonOnTop";
 
@@ -31,9 +33,29 @@ const titlePart = El({
 });
 
 // address part
+
+const titleOfAddress = El({
+	element: "div",
+	classList: "font-semibold text-xl",
+	innerText: "Home",
+});
+const descriptionOfAddress = El({
+	element: "div",
+	classList: "text-md text-[#33333388]",
+	innerText: "addres of the target",
+});
+
 const shippingAddress = El({
 	element: "div",
 	classList: "flex flex-col gap-5 border-b-1 border-[#00000020] pb-8",
+	eventListener: [
+		{
+			event: "click",
+			callback: () => {
+				router.navigate("/checkout/shippingaddress");
+			},
+		},
+	],
 	children: [
 		El({
 			element: "div",
@@ -57,18 +79,7 @@ const shippingAddress = El({
 						El({
 							element: "div",
 							classList: "flex flex-col gap-1",
-							children: [
-								El({
-									element: "div",
-									classList: "font-semibold text-xl",
-									innerText: "Home",
-								}),
-								El({
-									element: "div",
-									classList: "text-md text-[#33333388]",
-									innerText: "addres of the target",
-								}),
-							],
+							children: [titleOfAddress, descriptionOfAddress],
 						}),
 					],
 				}),
@@ -81,7 +92,10 @@ const shippingAddress = El({
 		}),
 	],
 });
-
+store.subscribe("address", (data) => {
+	titleOfAddress.innerText = data.title;
+	descriptionOfAddress.innerText = data.description;
+});
 // order list
 
 const orderListContainer = El({
@@ -107,6 +121,11 @@ const orderListContainer = El({
 							element: "img",
 							classList: "w-30 h-30 rounded-2xl",
 							src: imageURL,
+						});
+						const quantityPart = El({
+							element: "div",
+							classList: "text-md font-semibold",
+							innerText: `${quantity}`,
 						});
 
 						return El({
@@ -172,13 +191,7 @@ const orderListContainer = El({
 																	element: "div",
 																	classList:
 																		"bg-[#ebebec99] px-4 py-2 rounded-[100%]",
-																	children: [
-																		El({
-																			element: "div",
-																			classList: "text-md font-semibold",
-																			innerText: `${quantity}`,
-																		}),
-																	],
+																	children: [quantityPart],
 																}),
 															],
 														}),
@@ -208,6 +221,14 @@ const chooseShipping = El({
 		}),
 		El({
 			element: "div",
+			eventListener: [
+				{
+					event: "click",
+					callback: () => {
+						router.navigate("/checkout/shippingtype");
+					},
+				},
+			],
 			classList:
 				"flex flex-row justify-between items-center w-full p-5 rounded-2xl shadow-2xl shadow-[#00000010] ",
 			children: [
@@ -348,6 +369,14 @@ const submitButton = El({
 			classList: "w-full bg-black rounded-[50px] py-5 text-white  text-md",
 			innerText: "Continue to Payment",
 		}),
+	],
+	eventListener: [
+		{
+			event: "click",
+			callback: () => {
+				router.navigate("/checkout/payment");
+			},
+		},
 	],
 });
 

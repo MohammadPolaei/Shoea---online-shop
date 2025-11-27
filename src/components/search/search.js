@@ -1,9 +1,30 @@
 import { El } from "../../utils/el";
+import { store } from "../../utils/store";
+import { recentSearch } from "./recentSearch";
 import { searchNotFound } from "./searchNotFound";
-import { GetSearchResults, isFound } from "./searchResults";
+import { GetSearchResults } from "./searchResults";
 
 export function Search() {
 	//search input
+	store.setState("isFound", true);
+
+	const theInput = El({
+		element: "input",
+		placeholder: "Search",
+		id: "searchInput",
+		classList:
+			"bg-[#33333306] w-full py-5 px-16 active:outline-1 rounded-xl font-semibold placeholder:text-[#00000060] placeholder:font-normal",
+		eventListener: [
+			{
+				event: "input",
+				callback: () => {
+					setTimeout(() => {
+						GetSearchResults(document.getElementById("searchInput").value);
+					}, 2000);
+				},
+			},
+		],
+	});
 
 	const searchInput = El({
 		element: "div",
@@ -15,42 +36,7 @@ export function Search() {
 				classList:
 					"absolute top-0 right-[82%] bottom-0 left-0 m-auto w-10 opacity-100",
 			}),
-			El({
-				element: "input",
-				placeholder: "Search",
-				id: "searchInput",
-				classList:
-					"bg-[#33333306] w-full py-5 px-16 active:outline-1 rounded-xl font-semibold placeholder:text-[#00000060] placeholder:font-normal",
-				eventListener: [
-					{
-						event: "input",
-						callback: () => {
-							setTimeout(() => {
-								// result of input
-								console.log(isFound);
-
-								if (document.getElementById("searchResultContainer")) {
-									document.getElementById("searchResultContainer").remove();
-								}
-								if (
-									!isFound &&
-									document.getElementById("searchInput").value.length > 0
-								) {
-									document
-										.getElementById("searchContainer")
-										.append(searchNotFound);
-									console.log("notFoundPage");
-									return;
-								}
-								if (document.getElementById("searchInput").value.length < 1) {
-									return;
-								}
-								GetSearchResults(document.getElementById("searchInput").value);
-							}, 2000);
-						},
-					},
-				],
-			}),
+			theInput,
 			El({
 				element: "img",
 				src: "/images/search/options.svg",
@@ -75,9 +61,33 @@ export function Search() {
 	const search = El({
 		element: "div",
 		classList: "px-5 flex flex-col items-center justify-start",
-		children: [searchInput, dataContainer],
+		children: [searchInput, dataContainer, recentSearch],
 	});
 	searchInput.children[1].focus();
 
 	return search;
 }
+
+// STORE subscribe
+
+store.subscribe("isFound", (boolRes) => {
+	if (document.getElementById("searchInput")) {
+		if (document.getElementById("searchResultContainer")) {
+			document.getElementById("searchResultContainer").remove();
+			searchNotFound.remove();
+		}
+		if (!boolRes && document.getElementById("searchInput").value.length > 0) {
+			recentSearch.remove();
+			document.getElementById("searchContainer").append(searchNotFound);
+			return;
+		}
+		if (boolRes) {
+			recentSearch.remove();
+		}
+		if (document.getElementById("searchInput").value.length < 1) {
+			document.getElementById("searchContainer").append(recentSearch);
+
+			return;
+		}
+	}
+});

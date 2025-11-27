@@ -1,8 +1,9 @@
 import { sessionToken } from "../../utils/cookieData";
 import { El } from "../../utils/el";
+import { router } from "../../utils/router";
+import { store } from "../../utils/store";
 import { baseURL } from "../../utils/URL";
 
-export let isFound = false;
 export function GetSearchResults(searchInput) {
 	async function searchResultsFetch(searchInput) {
 		const result = await fetch(
@@ -21,10 +22,12 @@ export function GetSearchResults(searchInput) {
 	// UI design
 	searchResultsFetch(searchInput).then((res) => {
 		const { total, data } = res;
+
 		if (total > 0) {
-			isFound = true;
+			store.setState("isFound", true);
 		} else {
-			isFound = false;
+			store.setState("isFound", false);
+			return;
 		}
 
 		const searchResults = El({
@@ -56,9 +59,18 @@ export function GetSearchResults(searchInput) {
 						"grid grid-cols-2 gap-3 h-183 overflow-scroll no-scrollbar",
 					children: data.map((prod) => {
 						const { id, name, imageURL, price } = prod;
+
 						return El({
 							element: "div",
 							classList: "flex flex-col gap-2 relative",
+							eventListener: [
+								{
+									event: "click",
+									callback: () => {
+										router.navigate(`/product/${id}`);
+									},
+								},
+							],
 							children: [
 								El({
 									element: "img",
@@ -121,7 +133,9 @@ export function GetSearchResults(searchInput) {
 				}),
 			],
 		});
-
+		if (document.getElementById("searchInput").value == "") {
+			return;
+		}
 		document.getElementById("searchContainer").append(searchResults);
 	});
 }

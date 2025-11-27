@@ -1,5 +1,10 @@
 import { El } from "../../utils/el";
+import { store } from "../../utils/store";
 import { removeItemFromCart } from "../cart/removeProductFromCart";
+import { updateCartItemQuantity } from "../cart/updateProductQuantity";
+
+const products = [{ key: 0, value: 0 }];
+store.setState("quantityValueOfCart", products);
 
 export function containerDesign(selectedProductData) {
 	const { id, quantity, sneaker } = selectedProductData;
@@ -197,7 +202,7 @@ export function containerDesign(selectedProductData) {
 
 	const container = El({
 		element: "div",
-		classList: "p-5 rounded-3xl bg-white box-border mx-7 active:shadow-xl",
+		classList: "p-5 rounded-3xl bg-white box-border mx-7",
 		children: [
 			El({
 				element: "div",
@@ -266,6 +271,11 @@ export function containerDesign(selectedProductData) {
 																		return;
 																	}
 																	quantityValueOfCart.innerText--;
+
+																	updateCartItemQuantity(
+																		id,
+																		quantityValueOfCart.innerText
+																	);
 																},
 															},
 														],
@@ -280,6 +290,11 @@ export function containerDesign(selectedProductData) {
 																event: "click",
 																callback: () => {
 																	quantityValueOfCart.innerText++;
+
+																	updateCartItemQuantity(
+																		id,
+																		quantityValueOfCart.innerText
+																	);
 																},
 															},
 														],
@@ -296,5 +311,6 @@ export function containerDesign(selectedProductData) {
 			}),
 		],
 	});
+
 	return container;
 }

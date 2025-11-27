@@ -11,7 +11,7 @@ export const searchNotFound = El({
 				El({
 					element: "div",
 					classList: "text-xl font-bold",
-					innerText: `Results for "afdgadgad"`,
+					innerText: `Results`,
 				}),
 				El({
 					element: "div",

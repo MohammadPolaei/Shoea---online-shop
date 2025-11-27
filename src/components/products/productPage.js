@@ -245,6 +245,7 @@ function productPageCreator(productKeys) {
 							}
 							addToCart(id, quantityOfProduct);
 							SuccessModal("Product added to cart successfully");
+							document.getElementById("quantityValue").innerText = 0;
 						},
 					},
 				],

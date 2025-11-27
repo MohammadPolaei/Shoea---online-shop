@@ -23,6 +23,7 @@ router.addRoute("/signup", Signup_Page());
 router.addRoute("/home", Home_Page);
 router.addRoute("/cart", Cart_Page);
 router.addRoute("/checkout", Checkout_Page);
+router.addRoute("/checkout/:type", Checkout_Page);
 router.addRoute("/product/:id", Product_Page);
 router.addRoute("/search", Search_Page);
 
