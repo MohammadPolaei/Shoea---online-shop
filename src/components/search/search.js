@@ -20,6 +20,13 @@ export function Search() {
 				callback: () => {
 					setTimeout(() => {
 						GetSearchResults(document.getElementById("searchInput").value);
+
+						if (document.getElementById("searchInput").value.length > 5) {
+							store.setState(
+								"recentSearch",
+								document.getElementById("searchInput").value
+							);
+						}
 					}, 2000);
 				},
 			},
@@ -85,6 +92,7 @@ store.subscribe("isFound", (boolRes) => {
 			recentSearch.remove();
 		}
 		if (document.getElementById("searchInput").value.length < 1) {
+			searchNotFound.remove();
 			document.getElementById("searchContainer").append(recentSearch);
 
 			return;

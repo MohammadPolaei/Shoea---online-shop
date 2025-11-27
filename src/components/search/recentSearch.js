@@ -1,13 +1,16 @@
 import { El } from "../../utils/el";
+import { store } from "../../utils/store";
 
-const mockText = El({
+const theText = El({
+	element: "div",
+	innerText: `${store.getState("recentSearch") || "Recent Search Here"}`,
+});
+
+const userInputSearchForRecents = El({
 	element: "div",
 	classList: "flex flex-row justify-between items-center w-full",
 	children: [
-		El({
-			element: "div",
-			innerText: "Nike Somebrand model 123",
-		}),
+		theText,
 		El({
 			element: "img",
 			classList: "w-8",
@@ -15,40 +18,15 @@ const mockText = El({
 		}),
 	],
 });
-const mockText2 = El({
+export const recentSearchContainer = El({
 	element: "div",
-	classList: "flex flex-row justify-between items-center w-full",
-	children: [
-		El({
-			element: "div",
-			innerText: "Puma Somebrand model 345",
-		}),
-		El({
-			element: "img",
-			classList: "w-8",
-			src: "/images/search/delete.png",
-		}),
-	],
-});
-const mockText3 = El({
-	element: "div",
-	classList: "flex flex-row justify-between items-center w-full",
-	children: [
-		El({
-			element: "div",
-			innerText: "Nike Somebrand model 789",
-		}),
-		El({
-			element: "img",
-			classList: "w-8",
-			src: "/images/search/delete.png",
-		}),
-	],
+	classList: "w-full flex flex-col gap-8 text-[#33333388] text-xl pt-8",
+	children: [userInputSearchForRecents],
 });
 
 export const recentSearch = El({
 	element: "div",
-	classList: "flex flex-col",
+	classList: "flex flex-col w-full",
 	children: [
 		El({
 			element: "div",
@@ -67,10 +45,10 @@ export const recentSearch = El({
 				}),
 			],
 		}),
-		El({
-			element: "div",
-			classList: "flex flex-col gap-8 text-[#33333388] text-xl pt-8",
-			children: [mockText, mockText2, mockText3],
-		}),
+		recentSearchContainer,
 	],
+});
+
+store.subscribe("recentSearch", (value) => {
+	theText.innerText = value;
 });
