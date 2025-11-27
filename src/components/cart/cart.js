@@ -66,7 +66,9 @@ export function Cart() {
 	});
 
 	let totalPrice = 0;
-	CartItems.forEach((data) => (totalPrice += data.sneaker.price));
+	CartItems.forEach(
+		(data) => (totalPrice += data.sneaker.price * data.quantity)
+	);
 
 	const totalPriceAndCheckout = El({
 		element: "div",

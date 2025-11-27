@@ -1,4 +1,5 @@
 import { El } from "../../utils/el";
+import { store } from "../../utils/store";
 import { addToCart } from "../cart/addToCart";
 import { backButton } from "../shared/backButtonOnTop";
 import { ErrorModal } from "../shared/errorModal";
@@ -178,6 +179,12 @@ function productPageCreator(productKeys) {
 										return;
 									}
 									document.getElementById("quantityValue").innerText--;
+									store.setState(
+										"priceToShow",
+										Number(
+											price * document.getElementById("quantityValue").innerText
+										)
+									);
 								},
 							},
 						],
@@ -197,6 +204,12 @@ function productPageCreator(productKeys) {
 								event: "click",
 								callback: () => {
 									document.getElementById("quantityValue").innerText++;
+									store.setState(
+										"priceToShow",
+										Number(
+											price * document.getElementById("quantityValue").innerText
+										)
+									);
 								},
 							},
 						],
@@ -205,7 +218,11 @@ function productPageCreator(productKeys) {
 			}),
 		],
 	});
-
+	const priceToShow = El({
+		element: "div",
+		classList: "text-2xl font-semibold",
+		innerText: `$${price}.00`,
+	});
 	const footer = El({
 		element: "div",
 		classList:
@@ -220,11 +237,7 @@ function productPageCreator(productKeys) {
 						classList: "text-sm text-[#33333388]",
 						innerText: "Total price",
 					}),
-					El({
-						element: "div",
-						classList: "text-2xl font-semibold",
-						innerText: `$${price}.00`,
-					}),
+					priceToShow,
 				],
 			}),
 			El({
@@ -274,6 +287,9 @@ function productPageCreator(productKeys) {
 				],
 			}),
 		],
+	});
+	store.subscribe("priceToShow", (value) => {
+		priceToShow.innerText = `$${value}.00`;
 	});
 	return productSection;
 }

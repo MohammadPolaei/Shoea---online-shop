@@ -1,4 +1,6 @@
 import { El } from "../../utils/el";
+import { router } from "../../utils/router";
+import { store } from "../../utils/store";
 import { backButton } from "../shared/backButtonOnTop";
 export function ShippingType() {
 	const backbutt = backButton;
@@ -26,6 +28,18 @@ export function ShippingType() {
 	});
 
 	// items
+	const economyPrice = El({
+		element: "div",
+		classList: "font-semibold text-xl",
+		innerText: "$10",
+	});
+	const economyRadio = El({
+		element: "input",
+		type: "radio",
+		id: "Economy",
+		name: "chooseShipping",
+		classList: "scale-[2] bg-black accent-black mx-5",
+	});
 	const economy = El({
 		element: "div",
 		classList:
@@ -62,21 +76,21 @@ export function ShippingType() {
 			El({
 				element: "div",
 				classList: "flex flex-row items-center",
-				children: [
-					El({
-						element: "div",
-						classList: "font-semibold text-xl",
-						innerText: "$10",
-					}),
-					El({
-						element: "input",
-						type: "radio",
-						name: "chooseShipping",
-						classList: "scale-[2] bg-black accent-black mx-5",
-					}),
-				],
+				children: [economyPrice, economyRadio],
 			}),
 		],
+	});
+	const regularPrice = El({
+		element: "div",
+		classList: "font-semibold text-xl",
+		innerText: "$15",
+	});
+	const regularRadio = El({
+		element: "input",
+		id: "Regular",
+		type: "radio",
+		name: "chooseShipping",
+		classList: "scale-[2] bg-black accent-black mx-5",
 	});
 	const regular = El({
 		element: "div",
@@ -114,21 +128,21 @@ export function ShippingType() {
 			El({
 				element: "div",
 				classList: "flex flex-row items-center",
-				children: [
-					El({
-						element: "div",
-						classList: "font-semibold text-xl",
-						innerText: "$15",
-					}),
-					El({
-						element: "input",
-						type: "radio",
-						name: "chooseShipping",
-						classList: "scale-[2] bg-black accent-black mx-5",
-					}),
-				],
+				children: [regularPrice, regularRadio],
 			}),
 		],
+	});
+	const cargoPrice = El({
+		element: "div",
+		classList: "font-semibold text-xl",
+		innerText: "$20",
+	});
+	const cargoRadio = El({
+		element: "input",
+		type: "radio",
+		id: "Cargo",
+		name: "chooseShipping",
+		classList: "scale-[2] bg-black accent-black mx-5",
 	});
 	const cargo = El({
 		element: "div",
@@ -166,21 +180,21 @@ export function ShippingType() {
 			El({
 				element: "div",
 				classList: "flex flex-row items-center",
-				children: [
-					El({
-						element: "div",
-						classList: "font-semibold text-xl",
-						innerText: "$20",
-					}),
-					El({
-						element: "input",
-						type: "radio",
-						name: "chooseShipping",
-						classList: "scale-[2] bg-black accent-black mx-5",
-					}),
-				],
+				children: [cargoPrice, cargoRadio],
 			}),
 		],
+	});
+	const expressPrice = El({
+		element: "div",
+		classList: "font-semibold text-xl",
+		innerText: "$30",
+	});
+	const expressRadio = El({
+		element: "input",
+		type: "radio",
+		id: "Express",
+		name: "chooseShipping",
+		classList: "scale-[2] bg-black accent-black mx-5",
 	});
 	const express = El({
 		element: "div",
@@ -218,19 +232,7 @@ export function ShippingType() {
 			El({
 				element: "div",
 				classList: "flex flex-row items-center",
-				children: [
-					El({
-						element: "div",
-						classList: "font-semibold text-xl",
-						innerText: "$30",
-					}),
-					El({
-						element: "input",
-						type: "radio",
-						name: "chooseShipping",
-						classList: "scale-[2] bg-black accent-black mx-5",
-					}),
-				],
+				children: [expressPrice, expressRadio],
 			}),
 		],
 	});
@@ -256,6 +258,37 @@ export function ShippingType() {
 				classList:
 					"absolute top-[90%] bg-black text-white py-4 rounded-[50px] font-semibold w-full shadow-2xl",
 				innerText: "Apply",
+				eventListener: [
+					{
+						event: "click",
+						callback: () => {
+							[economyRadio, regularRadio, cargoRadio, expressRadio].forEach(
+								(item) => {
+									if (item.checked) {
+										switch (item.id) {
+											case "economy":
+												store.setState("shippingType", [item.id, 10]);
+												break;
+											case "regular":
+												store.setState("shippingType", [item.id, 15]);
+												break;
+											case "cargo":
+												store.setState("shippingType", [item.id, 20]);
+												break;
+											case "express":
+												store.setState("shippingType", [item.id, 30]);
+												break;
+
+											default:
+												break;
+										}
+									}
+									router.navigate("/checkout");
+								}
+							);
+						},
+					},
+				],
 			}),
 		],
 	});

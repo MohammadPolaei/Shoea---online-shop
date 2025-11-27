@@ -97,7 +97,7 @@ store.subscribe("address", (data) => {
 	descriptionOfAddress.innerText = data.description;
 });
 // order list
-
+let totalPrice;
 const orderListContainer = El({
 	element: "div",
 	classList:
@@ -116,6 +116,7 @@ const orderListContainer = El({
 				: CartItems.map((item) => {
 						const { quantity, sneaker } = item;
 						const { imageURL, name, colors, sizes, price } = sneaker;
+						totalPrice = price * quantity;
 
 						const image = El({
 							element: "img",
@@ -209,6 +210,11 @@ const orderListContainer = El({
 });
 
 // choose shipping
+const chooseShippingTitle = El({
+	element: "div",
+	classList: "text-md font-bold",
+	innerText: "Choose Shipping Type",
+});
 
 const chooseShipping = El({
 	element: "div",
@@ -241,11 +247,7 @@ const chooseShipping = El({
 							classList: "w-8",
 							src: "/images/checkout/shippingIcon.png",
 						}),
-						El({
-							element: "div",
-							classList: "text-md font-bold",
-							innerText: "Choose Shipping Type",
-						}),
+						chooseShippingTitle,
 					],
 				}),
 				El({
@@ -259,6 +261,11 @@ const chooseShipping = El({
 });
 
 // promo code
+const amountPrice = El({
+	element: "div",
+	classList: "",
+	innerText: "Price",
+});
 
 const promoCode = El({
 	element: "div",
@@ -312,11 +319,7 @@ const promoCode = El({
 									classList: "text-[#33333388]",
 									innerText: "Amount",
 								}),
-								El({
-									element: "div",
-									classList: "",
-									innerText: "Price",
-								}),
+								amountPrice,
 							],
 						}),
 						El({
@@ -349,7 +352,7 @@ const promoCode = El({
 						El({
 							element: "div",
 							classList: "",
-							innerText: "-",
+							innerText: `$${totalPrice}.00`,
 						}),
 					],
 				}),
@@ -392,6 +395,11 @@ export function CheckOut() {
 			promoCode,
 			submitButton,
 		],
+	});
+	store.subscribe("shippingType", (value) => {
+		console.log(value[0]);
+
+		chooseShippingTitle.innerText = value[0];
 	});
 	return checkOutContainer;
 }

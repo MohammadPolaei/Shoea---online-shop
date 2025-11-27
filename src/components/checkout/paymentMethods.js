@@ -101,6 +101,56 @@ export function PaymentMethods() {
 				classList:
 					"absolute top-[90%] bg-black text-white py-4 rounded-[50px] font-semibold w-full shadow-2xl",
 				innerText: "Confirm Payment",
+				eventListener: [
+					{
+						event: "click",
+						callback: () => {
+							const successPayment = El({
+								element: "div",
+								classList:
+									"absolute mx-auto top-20 p-10 flex flex-col justify-between gap-5 items-center backdrop-blur-xs bg-[#33333322] rounded-[50px]",
+								children: [
+									El({
+										element: "img",
+										classList: "w-full",
+										src: "/images/paymentDone.png",
+									}),
+									El({
+										element: "div",
+										classList: "text-2xl font-bold",
+										innerText: "Order Successful !",
+									}),
+									El({
+										element: "div",
+										classList: "text-md text-[#33333388]",
+										innerText: "You have successfully made order !",
+									}),
+									El({
+										element: "button",
+										classList:
+											"w-full rounded-[50px] bg-black text-white text-xl p-5",
+										innerText: "View Order",
+									}),
+									El({
+										element: "button",
+										classList:
+											"w-full rounded-[50px] bg-[#33333377] text-white text-xl p-5",
+										innerText: "OK",
+										eventListener: [
+											{
+												event: "click",
+												callback: () => {
+													successPayment.remove();
+												},
+											},
+										],
+									}),
+								],
+							});
+							shippingAddressContainer.append(successPayment);
+						},
+					},
+				],
 			}),
 		],
 	});

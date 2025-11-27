@@ -1,4 +1,5 @@
 import { El } from "../../utils/el";
+import { router } from "../../utils/router";
 import { store } from "../../utils/store";
 import { backButton } from "../shared/backButtonOnTop";
 import { SuccessModal } from "../shared/successMessageModal";
@@ -182,6 +183,7 @@ export function ShippingAddresPage() {
 																			El({
 																				element: "input",
 																				type: "radio",
+																				id: "radio",
 																				name: "chooseShipping",
 																				classList:
 																					"scale-[2] bg-black accent-black mx-5",
@@ -209,6 +211,14 @@ export function ShippingAddresPage() {
 				classList:
 					"absolute top-[90%] bg-black text-white py-4 rounded-[50px] font-semibold w-full shadow-2xl",
 				innerText: "Apply",
+				eventListener: [
+					{
+						event: "click",
+						callback: () => {
+							router.navigate("/checkout");
+						},
+					},
+				],
 			}),
 		],
 	});
