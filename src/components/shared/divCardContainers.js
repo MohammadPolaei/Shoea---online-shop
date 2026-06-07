@@ -38,12 +38,12 @@ export function containerDesign(selectedProductData) {
 		element: "div",
 		id: "removeModal",
 		classList:
-			"w-screen h-screen fixed inset-0 z-50 bg-[#00000055] backdrop-blur-xs ",
+			"w-full h-screen fixed inset-0 z-50 bg-[#00000055] backdrop-blur-xs ",
 		children: [
 			El({
 				element: "div",
 				classList:
-					"fixed flex flex-col items-center h-2/5 top-[60%] z-50 bg-[#fbfbfb] rounded-t-[10%] w-full",
+					"fixed flex flex-col items-center h-fit bottom-0 z-50 bg-[#fbfbfb] rounded-t-[10%] w-full",
 				children: [
 					El({
 						element: "div",
@@ -56,15 +56,16 @@ export function containerDesign(selectedProductData) {
 						children: [
 							El({
 								element: "div",
-								classList: "p-5 rounded-3xl bg-white box-border mx-7 ",
+								classList: "p-1 rounded-3xl bg-white box-border",
 								children: [
 									El({
 										element: "div",
-										classList: "flex flex-row gap-3 items-center",
+										classList:
+											"flex flex-row justify-between items-center gap-2",
 										children: [
 											El({
 												element: "img",
-												classList: "w-30 h-30 rounded-2xl ",
+												classList: "w-30 h-30 rounded-2xl",
 												src: imageURL,
 											}),
 											El({
@@ -154,11 +155,12 @@ export function containerDesign(selectedProductData) {
 
 					El({
 						element: "div",
-						classList: "flex flex-row justify-between gap-3 py-5",
+						classList: "w-full flex flex-row justify-center gap-3 py-5",
 						children: [
 							El({
 								element: "button",
-								classList: "bg-[#33333333] w-50 rounded-[50px] py-5 text-sm",
+								classList:
+									"bg-[#33333333] min-w-20 w-full rounded-[50px] py-5 text-sm",
 								innerText: "Cancel",
 								eventListener: [
 									{
@@ -172,7 +174,7 @@ export function containerDesign(selectedProductData) {
 							El({
 								element: "button",
 								classList:
-									"bg-[#000000] w-50 shadow-xl text-white rounded-[50px] py-5 text-sm",
+									"bg-[#000000] min-w-30 w-full shadow-xl text-white rounded-[50px] py-5 text-sm",
 								innerText: "Yes, Remove",
 								eventListener: [
 									{
@@ -202,20 +204,20 @@ export function containerDesign(selectedProductData) {
 
 	const container = El({
 		element: "div",
-		classList: "w-full p-5 rounded-3xl bg-white box-border mx-7",
+		classList: "w-full p-5 rounded-3xl bg-white box-border mx-0",
 		children: [
 			El({
 				element: "div",
-				classList: "flex flex-row gap-3 items-center",
+				classList: " w-full flex flex-row gap-3 items-center",
 				children: [
 					image,
 					El({
 						element: "div",
-						classList: "flex flex-col gap-3 justify-between items-left",
+						classList: "w-full flex flex-col gap-3 justify-between items-left",
 						children: [
 							El({
 								element: "div",
-								classList: "flex flex-row justify-between items-center",
+								classList: "w-full flex flex-row justify-between items-center",
 								children: [
 									El({
 										element: "div",
@@ -243,7 +245,8 @@ export function containerDesign(selectedProductData) {
 							}),
 							El({
 								element: "div",
-								classList: "flex flex-row justify-between w-50 items-center",
+								classList:
+									"flex flex-row justify-between min-w-50 items-center",
 								children: [
 									El({
 										element: "div",

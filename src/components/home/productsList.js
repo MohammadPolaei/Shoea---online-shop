@@ -83,7 +83,7 @@ function categoryListCreate(catName) {
 export function ProductList() {
 	const wholeProductList = El({
 		element: "div",
-		classList: "flex flex-col gap-5 h-189",
+		classList: "flex flex-col gap-5 h-[70vh]",
 		children: [
 			categoryTitle,
 			El({
