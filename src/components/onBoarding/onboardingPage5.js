@@ -54,7 +54,7 @@ const headingImg = El({
 export function OnboardingPage5() {
 	const OnboardingPage5 = El({
 		element: "div",
-		classList: "h-screen",
+		classList: "h-screen flex flex-col items-center",
 		children: [headingImg, descriptionPartPage5],
 	});
 	return OnboardingPage5;

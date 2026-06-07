@@ -48,14 +48,14 @@ const descriptionPartPage3 = El({
 
 const headingImg = El({
 	element: "img",
-	classList: "",
+	classList: "h-[642px]",
 	src: "/images/onBoardingPage3/wallpaper3.jpg",
 });
 
 export function OnboardingPage3() {
 	const OnboardingPage3 = El({
 		element: "div",
-		classList: "h-screen",
+		classList: "h-screen flex flex-col items-center",
 		children: [headingImg, descriptionPartPage3],
 	});
 	return OnboardingPage3;
