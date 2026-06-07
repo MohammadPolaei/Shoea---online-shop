@@ -8,6 +8,6 @@ const theBlackLogoImage = El({
 
 export const theBlackLogo = El({
 	element: "div",
-	classList: "w-full flex justify-center items-center p-10 my-20",
+	classList: "w-full flex justify-center items-center p-10 my-10",
 	children: [theBlackLogoImage],
 });

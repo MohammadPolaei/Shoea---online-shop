@@ -134,7 +134,10 @@ export async function logInData(userName, passWord) {
 		document.cookie = `sessionToken=${sortedResponse[0].token}; path=/;`;
 		document.cookie = `authToken=${response.token}; path=/;`;
 		console.log(document.cookie);
-		setTimeout(() => router.navigate("/home"), 1000);
+		setTimeout(() => {
+			location.reload();
+			router.navigate("/home");
+		}, 1000);
 
 		//
 	} else {
@@ -161,7 +164,7 @@ export function Login() {
 	const logIn = El({
 		element: "div",
 		classList:
-			"h-screen w-screen flex flex-col gap-10 items-center justify-start relative",
+			"h-screen w-full flex flex-col gap-10 items-center justify-start relative",
 		children: [
 			El({
 				element: "div",
