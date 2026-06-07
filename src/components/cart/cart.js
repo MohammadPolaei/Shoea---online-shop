@@ -47,13 +47,13 @@ export function Cart() {
 
 	const cartProductList = El({
 		element: "div",
-		classList: "flex flex-col gap-5 overflow-y-scroll no-scrollbar h-2/3",
+		classList: "flex flex-col gap-5 overflow-y-scroll no-scrollbar h-[53vh]",
 		children: CartItems.map((prod) => containerDesign(prod)),
 	});
 
 	const checkoutButton = El({
 		element: "button",
-		classList: "bg-black py-5 rounded-[50px] shadow-2xl w-2/3 text-white",
+		classList: "bg-black py-5 rounded-[50px] shadow-2xl w-1/2 text-white",
 		innerText: "Checkout",
 		eventListener: [
 			{
@@ -72,12 +72,12 @@ export function Cart() {
 
 	const totalPriceAndCheckout = El({
 		element: "div",
-		classList:
-			"absolute bg-white border-t-[1px] border-[#33333333] rounded-2xl mx-auto top-[78%] left-0 right-0 bottom-0",
+		classList: "relative h-fit",
 		children: [
 			El({
 				element: "div",
-				classList: "flex flex-row justify-between p-5",
+				classList:
+					"flex flex-row justify-between p-5 bg-white w-full bg-white border-t-[1px] border-[#33333333] rounded-2xl fixed mx-auto left-0 right-0 bottom-22",
 				children: [
 					El({
 						element: "div",

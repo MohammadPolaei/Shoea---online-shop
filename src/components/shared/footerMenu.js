@@ -49,7 +49,7 @@ export function footerMenu() {
 	const footer = El({
 		element: "div",
 		classList:
-			"fixed w-screen left-0 bottom-0 py-8 flex flex-row items-center justify-evenly gap-1 bg-white rounded-3xl",
+			"fixed w-screen left-0 -bottom-2 py-8 flex flex-row items-center justify-evenly gap-1 bg-white rounded-3xl",
 		children: [homeIcon, cartIcon, ordersIcon, walletIcon, profileIcon],
 	});
 	return footer;

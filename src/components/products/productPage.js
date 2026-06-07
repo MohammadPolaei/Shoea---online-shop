@@ -226,7 +226,7 @@ function productPageCreator(productKeys) {
 	const footer = El({
 		element: "div",
 		classList:
-			"flex flex-row h-full border-t-1 border-[#33333322] items-center justify-start gap-8",
+			"flex flex-row h-full border-t-1 border-[#33333322] items-center justify-start gap-8 py-2",
 		children: [
 			El({
 				element: "div",
