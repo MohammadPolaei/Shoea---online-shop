@@ -1,8 +1,8 @@
 import { sessionToken } from "../../utils/cookieData";
 import { cart } from "../../utils/URL";
 
-export function addToCart(theSneakerId, theQuantity) {
-	const addToCart = fetch(cart, {
+export async function addToCart(theSneakerId, theQuantity) {
+	const addToCart = await fetch(cart, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -13,5 +13,7 @@ export function addToCart(theSneakerId, theQuantity) {
 			quantity: theQuantity,
 		}),
 	});
-	return addToCart;
+
+	const res = await addToCart.json();
+	return res;
 }
